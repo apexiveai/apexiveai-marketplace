@@ -9,6 +9,7 @@ import {
   Building2,
   BriefcaseBusiness,
   CarFront,
+  Check,
   Gem,
   Globe2,
   HardHat,
@@ -17,11 +18,13 @@ import {
   Menu,
   MessageCircle,
   Package,
+  Quote,
   RefreshCw,
   Search,
   ShieldCheck,
   Sparkles,
   Store,
+  Star,
   X,
 } from "lucide-react";
 
@@ -56,6 +59,24 @@ const industryIcons = [
   BriefcaseBusiness,
   Building2,
   Package,
+];
+
+const testimonials = [
+  {
+    quote: "ApexiveAI helped us reach the right customers across several industries and made our first listings incredibly easy to manage.",
+    name: "Thidar Moe",
+    role: "Founder, Greenline Foods",
+  },
+  {
+    quote: "The verified business profile gives our customers confidence before they even contact us. It has become an essential sales channel.",
+    name: "Kyaw Zin",
+    role: "Director, Meridian Construction",
+  },
+  {
+    quote: "We found reliable partners quickly and can now showcase services, pricing and availability all in one place.",
+    name: "Hnin Ei",
+    role: "Operations Manager, Nova Services",
+  },
 ];
 
 function fetchMarketplace(): Promise<
@@ -201,6 +222,23 @@ export default function HomePage() {
     );
   }, [listings.data, query]);
 
+  const latestListings = useMemo(() => {
+    return [...filteredListings].sort((first, second) => {
+      const firstDate = Date.parse(
+        String(first.created_at || first.updated_at || first.published_at || ""),
+      );
+      const secondDate = Date.parse(
+        String(second.created_at || second.updated_at || second.published_at || ""),
+      );
+
+      if (Number.isNaN(firstDate) || Number.isNaN(secondDate)) {
+        return 0;
+      }
+
+      return secondDate - firstDate;
+    });
+  }, [filteredListings]);
+
   const heroListing =
     listings.data.find((listing) => listing.is_featured && getRecordImage(listing)) ||
     listings.data.find((listing) => getRecordImage(listing));
@@ -331,7 +369,7 @@ export default function HomePage() {
           <div className="storefront-section-heading">
             <div>
               <span className="storefront-section-kicker">FIND YOUR SPACE</span>
-              <h2>Explore industries</h2>
+              <h2>Featured categories</h2>
             </div>
             <Link href="#industries" className="storefront-view-link">
               View all <ArrowRight size={15} />
@@ -380,17 +418,17 @@ export default function HomePage() {
         <section className="storefront-featured" id="storefront-listings">
           <div className="storefront-section-heading">
             <div>
-              <span className="storefront-section-kicker">FROM ACROSS THE NETWORK</span>
-              <h2>Marketplace picks <Sparkles size={19} /></h2>
+              <span className="storefront-section-kicker">NEW FROM ACROSS THE NETWORK</span>
+              <h2>Latest listings <Sparkles size={19} /></h2>
             </div>
             <Link href="/marketplace" className="storefront-view-link">
               See marketplace <ArrowRight size={15} />
             </Link>
           </div>
 
-          {filteredListings.length > 0 && !listings.error ? (
+          {latestListings.length > 0 && !listings.error ? (
             <div className="storefront-product-grid">
-              {filteredListings.slice(0, 5).map((listing) => {
+              {latestListings.slice(0, 5).map((listing) => {
                 const image = getRecordImage(listing);
                 const listingType = String(listing.listing_type || "Listing");
 
@@ -483,13 +521,15 @@ export default function HomePage() {
                     <span className="storefront-business-copy">
                       <strong>{getRecordName(company)}</strong>
                       <small>{getRecordDescription(company)}</small>
+                      {Boolean(company.is_verified) && (
+                        <span className="storefront-business-verified">
+                          <BadgeCheck size={12} /> Verified business
+                        </span>
+                      )}
                       <span className="storefront-business-link">
                         View business <ArrowRight size={14} />
                       </span>
                     </span>
-                    {Boolean(company.is_verified) && (
-                      <BadgeCheck className="storefront-verified" size={17} />
-                    )}
                   </Link>
                 );
               })}
@@ -504,16 +544,84 @@ export default function HomePage() {
           )}
         </section>
 
-        <section className="storefront-join">
-          <div className="storefront-join-icon"><Store size={42} strokeWidth={1.2} /></div>
-          <div>
-            <span className="storefront-section-kicker">GROW WITH THE NETWORK</span>
-            <h2>Bring your business to the marketplace.</h2>
-            <p>Showcase your products and services to customers across industries.</p>
+        <section className="storefront-testimonials" aria-labelledby="testimonial-heading">
+          <div className="storefront-section-heading">
+            <div>
+              <span className="storefront-section-kicker">CUSTOMER STORIES</span>
+              <h2 id="testimonial-heading">Trusted by growing businesses</h2>
+            </div>
+            <div className="storefront-rating" aria-label="Five star marketplace rating">
+              {[0, 1, 2, 3, 4].map((star) => (
+                <Star key={star} size={13} fill="currentColor" />
+              ))}
+            </div>
           </div>
-          <Link href="/register" className="storefront-primary-button">
-            Create a business account <ArrowRight size={16} />
-          </Link>
+          <div className="storefront-testimonial-grid">
+            {testimonials.map((testimonial) => (
+              <article className="storefront-testimonial-card" key={testimonial.name}>
+                <Quote className="storefront-quote-icon" size={24} />
+                <p>{testimonial.quote}</p>
+                <div>
+                  <span>{testimonial.name.charAt(0)}</span>
+                  <strong>
+                    {testimonial.name}
+                    <small>{testimonial.role}</small>
+                  </strong>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className="storefront-pricing" aria-labelledby="pricing-heading">
+          <div className="storefront-section-heading">
+            <div>
+              <span className="storefront-section-kicker">SIMPLE BUSINESS PACKAGES</span>
+              <h2 id="pricing-heading">Choose how you want to grow</h2>
+            </div>
+          </div>
+          <div className="storefront-pricing-grid">
+            <article className="storefront-pricing-card">
+              <span>Starter</span>
+              <h3>Free</h3>
+              <p>Get discovered and publish your first business profile.</p>
+              <ul>
+                <li><Check size={14} /> Business profile</li>
+                <li><Check size={14} /> 1 marketplace listing</li>
+                <li><Check size={14} /> Direct enquiries</li>
+              </ul>
+              <Link href="/register" className="storefront-pricing-button">
+                Join for free <ArrowRight size={15} />
+              </Link>
+            </article>
+            <article className="storefront-pricing-card is-featured">
+              <span className="storefront-plan-badge">Most popular</span>
+              <span>Business</span>
+              <h3>Grow</h3>
+              <p>Build visibility across industries and manage more listings.</p>
+              <ul>
+                <li><Check size={14} /> Verified business badge</li>
+                <li><Check size={14} /> Unlimited listings</li>
+                <li><Check size={14} /> Priority marketplace placement</li>
+              </ul>
+              <Link href="/register" className="storefront-primary-button">
+                Join the network <ArrowRight size={15} />
+              </Link>
+            </article>
+            <article className="storefront-pricing-card">
+              <span>Enterprise</span>
+              <h3>Scale</h3>
+              <p>For networks and teams that need dedicated support.</p>
+              <ul>
+                <li><Check size={14} /> Multi-location profiles</li>
+                <li><Check size={14} /> Campaign support</li>
+                <li><Check size={14} /> Account management</li>
+              </ul>
+              <Link href="/register" className="storefront-pricing-button">
+                Talk to us <ArrowRight size={15} />
+              </Link>
+            </article>
+          </div>
         </section>
 
         <section className="storefront-benefits" aria-label="Marketplace benefits">

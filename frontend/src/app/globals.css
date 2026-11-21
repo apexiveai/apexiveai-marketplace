@@ -2608,6 +2608,192 @@ body {
   top: 13px;
 }
 
+.storefront-business-verified {
+  align-items: center;
+  color: #32745e;
+  display: inline-flex;
+  font-size: 8px;
+  font-weight: 700;
+  gap: 4px;
+  margin-top: 6px;
+  text-transform: uppercase;
+}
+
+.storefront-testimonials,
+.storefront-pricing {
+  margin-top: 22px;
+}
+
+.storefront-rating {
+  align-items: center;
+  color: #b99540;
+  display: flex;
+  gap: 3px;
+}
+
+.storefront-testimonial-grid {
+  display: grid;
+  gap: 13px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.storefront-testimonial-card {
+  background: #ffffff;
+  border: 1px solid rgba(20, 45, 33, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 7px 25px rgba(27, 45, 35, 0.025);
+  padding: 20px;
+}
+
+.storefront-quote-icon {
+  color: #c4a255;
+}
+
+.storefront-testimonial-card > p {
+  color: #4e5d54;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 12px 0 18px;
+  min-height: 86px;
+}
+
+.storefront-testimonial-card > div {
+  align-items: center;
+  display: flex;
+  gap: 9px;
+}
+
+.storefront-testimonial-card > div > span {
+  align-items: center;
+  background: #e6ede7;
+  border-radius: 50%;
+  color: #245744;
+  display: flex;
+  font-family: Georgia, "Times New Roman", serif;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
+}
+
+.storefront-testimonial-card strong {
+  color: #20352b;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+}
+
+.storefront-testimonial-card strong small {
+  color: #7a837d;
+  font-size: 8px;
+  font-weight: 400;
+  margin-top: 3px;
+}
+
+.storefront-pricing {
+  background: #f1f3ec;
+  border-radius: 15px;
+  padding: 22px;
+}
+
+.storefront-pricing-grid {
+  display: grid;
+  gap: 13px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.storefront-pricing-card {
+  background: #ffffff;
+  border: 1px solid rgba(20, 45, 33, 0.09);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 20px;
+  position: relative;
+}
+
+.storefront-pricing-card.is-featured {
+  border: 2px solid #245744;
+  box-shadow: 0 12px 28px rgba(28, 72, 57, 0.1);
+}
+
+.storefront-pricing-card > span {
+  color: #315d50;
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.storefront-pricing-card .storefront-plan-badge {
+  background: #245744;
+  border-radius: 20px;
+  color: #ffffff;
+  padding: 5px 8px;
+  position: absolute;
+  right: 12px;
+  top: 12px;
+}
+
+.storefront-pricing-card h3 {
+  color: #17392e;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 9px 0 7px;
+}
+
+.storefront-pricing-card > p {
+  color: #68756e;
+  font-size: 9px;
+  line-height: 1.55;
+  margin: 0;
+  min-height: 42px;
+}
+
+.storefront-pricing-card ul {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  margin: 14px 0 18px;
+  padding: 0;
+}
+
+.storefront-pricing-card li {
+  align-items: center;
+  color: #405248;
+  display: flex;
+  font-size: 9px;
+  gap: 7px;
+}
+
+.storefront-pricing-card li svg {
+  color: #32745e;
+}
+
+.storefront-pricing-button,
+.storefront-pricing-card .storefront-primary-button {
+  align-items: center;
+  border-radius: 7px;
+  display: flex;
+  font-size: 9px;
+  font-weight: 700;
+  justify-content: center;
+  margin-top: auto;
+  min-height: 39px;
+  width: 100%;
+}
+
+.storefront-pricing-button {
+  border: 1px solid #b7c4bb;
+  color: #245744;
+  gap: 7px;
+}
+
+.storefront-pricing-button:hover {
+  background: #edf3ee;
+}
+
 .storefront-join {
   align-items: center;
   background: #e9ede4;
@@ -3092,6 +3278,38 @@ body {
   .storefront-business-image {
     flex-basis: 57px;
     height: 57px;
+  }
+
+  .storefront-testimonials,
+  .storefront-pricing {
+    margin-top: 16px;
+  }
+
+  .storefront-testimonial-grid,
+  .storefront-pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .storefront-testimonial-card {
+    padding: 16px;
+  }
+
+  .storefront-testimonial-card > p {
+    font-size: 12px;
+    min-height: 0;
+  }
+
+  .storefront-pricing {
+    border-radius: 12px;
+    padding: 15px 11px;
+  }
+
+  .storefront-pricing-card {
+    padding: 16px;
+  }
+
+  .storefront-pricing-card > p {
+    min-height: 0;
   }
 
   .storefront-join {
